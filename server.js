@@ -14,4 +14,18 @@ const port = process.env.PORT || 8000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(express.static("public"));
+app.use(express.static("./public"));
+
+//get 
+module.exports = function (app) {
+    app.get("/api/notes", function (req, res) {
+
+        (readFileSync('./db.json', 'utf8'))
+          .then(data => {
+            console.log(data, "data-two")
+            //notes=[].concat(JSON.parse(data));
+            res.json(JSON.parse(data))
+          })
+          .catch(err => console.log(err))
+    
+      });}
