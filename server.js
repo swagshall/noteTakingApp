@@ -3,23 +3,26 @@ const path = require('path');
 const fs = require('fs');
 const util = require('util');
 
-const readFileSync = util.promisify(fs.readFile);
-const writeFileSync = util.promisify(fs.writeFile); 
+//Require routes file
+const routes=require('./routes/routes');
+
+// const readFileSync = util.promisify(fs.readFile);
+// const writeFileSync = util.promisify(fs.writeFile); 
 
 // setting express server
 const app = express();
-const port = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8000;
 
 
 //middleware
+app.use("/", routes)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname));
 
 // app.use(express.static("./public"));
 
-//Require routes file
-require('./routes/routes')(app);
+
 
 // Setup listener
 app.listen(PORT, function() {
