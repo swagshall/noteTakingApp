@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use(express.static("./public"));
 
-//get 
+//get /api/notes
 module.exports = function (app) {
     app.get("/api/notes", function (req, res) {
 
@@ -29,3 +29,27 @@ module.exports = function (app) {
           .catch(err => console.log(err))
     
       });}
+
+//post /api/notes
+// app.post("/api/notes", function (req, res) {
+//     let note=req.body;
+//     (readFileSync('./db.json', 'utf8'))
+//     .then(data => {
+      
+//       const notes=[].concat(JSON.parse(data));
+//       note.id=notes.length+1;
+//       res.json(JSON.parse(data))
+// })
+
+app.post("/api/notes", (req, res) => {
+    // let note=req.body;
+    const notes=[].concat(JSON.parse(data));
+    const newNote = {
+      title: req.body.title,
+      text: req.body.text,
+      id=notes.length+1,
+    };
+    writeFileSync(newNote).then(data => 
+        res.json(data)).catch((err) => 
+        console.log(err));
+  });
